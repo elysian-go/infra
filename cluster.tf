@@ -1,13 +1,13 @@
 locals {
-  project = "gke-tutorial-xxxxxx"
+  project = "GCP_PROJECT"
 }
 
 module "cluster" {
 
   project                             = local.project
   source                              = "./gke"
-  region                              = "europe-north1"
-  location                            = "europe-north1-a"
+  region                              = "us-east1"
+  location                            = "us-east1-b"
   cluster_name                        = "kluster"
   cluster_range_name                  = "gke-pods"
   services_range_name                 = "gke-services"
@@ -20,12 +20,12 @@ module "cluster" {
   source_subnetwork_ip_ranges_to_nat  = "LIST_OF_SUBNETWORKS"
   source_ip_ranges_to_nat             = ["ALL_IP_RANGES"]
   nat_log_filter                      = "ERRORS_ONLY"
-  logging_service                     = "none" # $$$
-  monitoring_service                  = "none" # $$$
+  logging_service                     = "logging.googleapis.com/kubernetes" # $$$
+  monitoring_service                  = "monitoring.googleapis.com/kubernetes" # $$$
 
   node_pools = {
     ingress-pool = {
-      machine_type       = "f1-micro" # $$$
+      machine_type       = "g1-small" # $$$
       initial_node_count = 1
       min_node_count     = 1
       max_node_count     = 1
@@ -38,7 +38,7 @@ module "cluster" {
       service_account    = "kluster-serviceaccount@${local.project}.iam.gserviceaccount.com"
     }
     web-pool = {
-      machine_type       = "f1-micro" # $$$
+      machine_type       = "g1-small" # $$$
       initial_node_count = 1
       min_node_count     = 1
       max_node_count     = 1
