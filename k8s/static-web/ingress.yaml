@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: static-web
+  namespace: elysian-dev
+  labels:
+    app.kubernetes.io/name: static-web
+    app.kubernetes.io/version: "0.1"
+    app.kubernetes.io/part-of: front
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.org/mergeable-ingress-type: "minion"
+spec:
+  rules:
+    - host: k8s.debray.dev
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: static-web
+              servicePort: 80

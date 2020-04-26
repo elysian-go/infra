@@ -1,0 +1,13 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: elysian-dev
+  labels:
+    name: elysian-dev
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: elysian-ingress
+  labels:
+    name: elysian-ingress

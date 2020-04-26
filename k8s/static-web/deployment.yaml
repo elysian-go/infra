@@ -1,28 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-web
-  namespace: nginx-web
+  name: static-web
+  namespace: elysian-dev
   labels:
-    app.kubernetes.io/name: nginx-web
-    app.kubernetes.io/part-of: nginx-web
+    app.kubernetes.io/name: static-web
+    app.kubernetes.io/version: "0.1"
+    app.kubernetes.io/part-of: front
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app.kubernetes.io/name: nginx-web
-      app.kubernetes.io/part-of: nginx-web
+      app.kubernetes.io/name: static-web
+      app.kubernetes.io/part-of: front
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: nginx-web
-        app.kubernetes.io/part-of: nginx-web
+        app.kubernetes.io/name: static-web
+        app.kubernetes.io/version: "0.1"
+        app.kubernetes.io/part-of: front
     spec:
       nodeSelector:
         cloud.google.com/gke-nodepool: web-pool
       containers:
         - name: "nginx-web"
-          image: gcr.io/GCP_PROJECT/nginx-web:latest
+          image: gcr.io/groovy-height-275210/nginx-web:latest
           ports:
             - name: http
               containerPort: 80
