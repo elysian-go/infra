@@ -22,6 +22,8 @@ spec:
     spec:
       nodeSelector:
         cloud.google.com/gke-nodepool: web-pool
+      imagePullSecrets:
+        - name: gcr-json-key
       containers:
         - name: "nginx-web"
           image: gcr.io/groovy-height-275210/nginx-web:latest

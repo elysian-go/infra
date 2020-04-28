@@ -3,12 +3,16 @@
 #GCloud
 gcloud container clusters get-credentials kluster
 gcloud iam service-accounts list
-gcloud iam service-accounts keys create keys/kubeip-key.json --iam-account kubeip-serviceaccount@groovy-height-275210.iam.gserviceaccount.com
+gcloud iam service-accounts keys create keys/kubeip-key.json \
+ --iam-account kubeip-serviceaccount@GCP_PROJ.iam.gserviceaccount.com
 
 #namespaces
 kubectl create --save-config -f k8s/namespaces.yaml
 
 #static-web deployment
+kubectl create secret docker-registry gcr-json-key \
+--docker-server=asia.gcr.io --docker-username=_json_key \
+--docker-password="$(cat ./keys/gcr_key.json)" --docker-email=any@valid.email
 kubectl create --save-config -f k8s/static-web/deployment.yaml -f k8s/static-web/service.yaml
 
 #kubeip setup
@@ -24,3 +28,12 @@ kubectl create --save-config -f k8s/ingress/ingress.yaml
 kubectl create --save-config -f k8s/static-web/ingress.yaml
 
 kubectl get event --sort-by=lastTimestamp
+
+#redis-ha
+helm install redis-ha dandydev/redis-ha -f k8s/redis/values.yaml --namespace elysian-dev
+
+#resize node pool
+gcloud container clusters resize kluster --node-pool web-pool --num-nodes 3
+
+#update configmap or secret
+kubectl create configmap NAME --from-file PATH -o yaml --dry-run | kubectl replace -f - -n elysian-dev
