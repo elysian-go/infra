@@ -14,7 +14,7 @@ imagePullSecrets: []
 # - name: "image-pull-secret"
 
 ## replicas number for each component
-replicas: 
+replicas: 1
 
 ## Kubernetes priorityClass name for the redis-ha-server pod
 # priorityClassName: ""
@@ -210,7 +210,8 @@ securityContext:
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
 ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
-nodeSelector: {}
+nodeSelector:
+  cloud.google.com/gke-nodepool: web-pool
 
 ## Whether the Redis server pods should be forced to run on separate nodes.
 ## This is accomplished by setting their AntiAffinity with requiredDuringSchedulingIgnoredDuringExecution as opposed to preferred.
