@@ -26,7 +26,7 @@ spec:
         - name: gcr-json-key
       containers:
         - name: "nginx-web"
-          image: gcr.io/groovy-height-275210/nginx-web:latest
+          image: gcr.io/GCP_PROJECT/nginx-web:latest
           ports:
             - name: http
               containerPort: 80
