@@ -1,10 +1,10 @@
 #!/bin/bash
 
 #GCloud
-gcloud container clusters get-credentials kluster
+gcloud container clusters get-credentials kluster --region us-east1-b
 gcloud iam service-accounts list
 gcloud iam service-accounts keys create keys/kubeip-key.json \
- --iam-account kubeip-serviceaccount@GCP_PROJ.iam.gserviceaccount.com
+ --iam-account kubeip-serviceaccount@GCP_PROJECT.iam.gserviceaccount.com
 
 #namespaces
 kubectl create --save-config -f k8s/namespaces.yaml

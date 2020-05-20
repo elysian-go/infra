@@ -60,7 +60,7 @@ resource "google_compute_router_nat" "gke-nat" {
   udp_idle_timeout_sec             = 30
 }
 
-resource "google_compute_address" "static-ingress" {
+resource "google_compute_address" "static_ingress" {
   name     = "static-ingress"
   project  = var.project
   region   = var.region
@@ -85,4 +85,8 @@ resource "google_compute_firewall" "default" {
 
   source_ranges = ["0.0.0.0/0"]
   target_tags   = var.node_pools_tags.ingress-pool
+}
+
+output "public_cluster_ip" {
+  value = google_compute_address.static_ingress.address
 }

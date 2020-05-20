@@ -1,5 +1,10 @@
 provider "google" {
-  version     = "3.18.0"
+  version     = "3.22.0"
+  credentials = file("keys/gke_key.json")
+}
+
+provider "google-beta" {
+  version     = "3.22.0"
   credentials = file("keys/gke_key.json")
 }
 
